@@ -1,0 +1,85 @@
+{
+  "name": "Agent Sandbox",
+  "image": "mcr.microsoft.com/devcontainers/base:debian13",
+
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": false,
+      "upgradePackages": true
+    },
+    "ghcr.io/devcontainers/features/git:1": {},
+
+    "ghcr.io/rocker-org/devcontainer-features/apt-packages:1": {
+      "packages": "build-essential,clang,clangd,clang-format,clang-tidy,lld,lldb,gdb,valgrind,cmake,ninja-build,ccache,autoconf,automake,libtool,pkg-config,libssl-dev,libffi-dev,zlib1g-dev,libbz2-dev,liblzma-dev,libreadline-dev,libsqlite3-dev,libxml2-dev,libcurl4-openssl-dev,libyaml-dev,libgmp-dev,libboost-all-dev,libeigen3-dev,libprotobuf-dev,protobuf-compiler,curl,wget,jq,unzip,zip,ripgrep,fd-find,tree,sqlite3,strace,file,less,procps,netcat-openbsd,openssh-client,ca-certificates"
+    },
+
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "3.15",
+      "installTools": true
+    },
+
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "lts",
+      "pnpmVersion": "latest",
+      "nodeGypDependencies": true
+    },
+
+    "ghcr.io/devcontainers/features/rust:1": {
+      "version": "stable",
+      "profile": "default",
+      "components": "rust-analyzer,rust-src,rustfmt,clippy"
+    }
+  },
+
+  "containerEnv": {
+    "PYTHONUNBUFFERED": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PIP_DISABLE_PIP_VERSION_CHECK": "1",
+    "CARGO_TERM_COLOR": "always",
+    "CC": "clang",
+    "CXX": "clang++",
+    "CMAKE_GENERATOR": "Ninja",
+    "CCACHE_DIR": "/home/vscode/.cache/ccache"
+  },
+
+  "mounts": [
+    "source=hermes-cargo-registry,target=/usr/local/cargo/registry,type=volume",
+    "source=hermes-pip-cache,target=/home/vscode/.cache/pip,type=volume",
+    "source=hermes-npm-cache,target=/home/vscode/.npm,type=volume",
+    "source=hermes-ccache,target=/home/vscode/.cache/ccache,type=volume"
+  ],
+
+  "onCreateCommand": "sudo chown -R vscode:vscode /usr/local/cargo/registry /home/vscode/.cache /home/vscode/.npm",
+
+  "postCreateCommand": "pipx install uv && pip install --no-cache-dir numpy scipy pandas matplotlib requests httpx pydantic pyyaml python-dotenv beautifulsoup4 lxml pytest ruff mypy ipython && npm install -g typescript tsx ts-node @types/node eslint prettier",
+
+  "remoteUser": "vscode",
+  "init": true,
+
+  "capAdd": ["SYS_PTRACE"],
+  "securityOpt": ["seccomp=unconfined"],
+
+  "runArgs": ["--memory=4g", "--cpus=2", "--pids-limit=512"],
+
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "llvm-vs-code-extensions.vscode-clangd",
+        "vadimcn.vscode-lldb",
+        "ms-vscode.cmake-tools",
+        "ms-python.python",
+        "charliermarsh.ruff",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "rust-lang.rust-analyzer",
+        "tamasfe.even-better-toml"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/python/current/bin/python",
+        "rust-analyzer.check.command": "clippy"
+      }
+    }
+  }
+}

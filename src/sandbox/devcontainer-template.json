@@ -1,0 +1,12 @@
+{
+    "id": "sandbox",
+    "version": "1.0.0",
+    "name": "Agent Sandbox",
+    "description": "Agent Sandbox",
+    "documentationURL": "https://github.com/silvecor/agent-sandbox/tree/main/src/sandbox",
+    "licenseURL": "https://github.com/silvecor/agent-sandbox/blob/main/LICENSE",
+    "options": {},
+    "platforms": [
+        "Any"
+    ]
+}
