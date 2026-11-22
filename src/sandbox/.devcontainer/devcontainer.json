@@ -10,7 +10,7 @@
     "ghcr.io/devcontainers/features/git:1": {},
 
     "ghcr.io/rocker-org/devcontainer-features/apt-packages:1": {
-      "packages": "build-essential,clang,clangd,clang-format,clang-tidy,lld,lldb,gdb,valgrind,cmake,ninja-build,ccache,autoconf,automake,libtool,pkg-config,libssl-dev,libffi-dev,zlib1g-dev,libbz2-dev,liblzma-dev,libreadline-dev,libsqlite3-dev,libxml2-dev,libcurl4-openssl-dev,libyaml-dev,libgmp-dev,libboost-all-dev,libeigen3-dev,libprotobuf-dev,protobuf-compiler,curl,wget,jq,unzip,zip,ripgrep,fd-find,tree,sqlite3,strace,file,less,procps,netcat-openbsd,openssh-client,ca-certificates"
+      "packages": "build-essential,clang,clangd,clang-format,clang-tidy,gdb,cmake,ninja-build,ccache,autoconf,automake,libtool,pkg-config,libssl-dev,libffi-dev,zlib1g-dev,libreadline-dev,libsqlite3-dev,libxml2-dev,libcurl4-openssl-dev,libyaml-dev,curl,wget,jq,unzip,zip,ripgrep,fd-find,tree,sqlite3,strace,file,less,procps,netcat-openbsd,openssh-client,ca-certificates"
     },
 
     "ghcr.io/devcontainers/features/python:1": {
@@ -26,8 +26,8 @@
 
     "ghcr.io/devcontainers/features/rust:1": {
       "version": "stable",
-      "profile": "default",
-      "components": "rust-analyzer,rust-src,rustfmt,clippy"
+      "profile": "minimal",
+      "components": "rustfmt,clippy"
     }
   },
 
@@ -51,7 +51,7 @@
 
   "onCreateCommand": "sudo chown -R vscode:vscode /usr/local/cargo/registry /home/vscode/.cache /home/vscode/.npm",
 
-  "postCreateCommand": "pipx install uv && pip install --no-cache-dir numpy scipy pandas matplotlib requests httpx pydantic pyyaml python-dotenv beautifulsoup4 lxml pytest ruff mypy ipython && npm install -g typescript tsx ts-node @types/node eslint prettier",
+  "postCreateCommand": "pipx install uv && pip install --no-cache-dir numpy scipy pandas requests httpx pydantic pyyaml python-dotenv beautifulsoup4 lxml pytest ruff mypy ipython && npm install -g typescript tsx ts-node @types/node",
 
   "remoteUser": "vscode",
   "init": true,
@@ -59,27 +59,7 @@
   "capAdd": ["SYS_PTRACE"],
   "securityOpt": ["seccomp=unconfined"],
 
-  "runArgs": ["--memory=4g", "--cpus=2", "--pids-limit=512"],
+  // "runArgs": ["--memory=4g", "--cpus=2", "--pids-limit=512"],
 
-  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
-
-  "customizations": {
-    "vscode": {
-      "extensions": [
-        "llvm-vs-code-extensions.vscode-clangd",
-        "vadimcn.vscode-lldb",
-        "ms-vscode.cmake-tools",
-        "ms-python.python",
-        "charliermarsh.ruff",
-        "dbaeumer.vscode-eslint",
-        "esbenp.prettier-vscode",
-        "rust-lang.rust-analyzer",
-        "tamasfe.even-better-toml"
-      ],
-      "settings": {
-        "python.defaultInterpreterPath": "/usr/local/python/current/bin/python",
-        "rust-analyzer.check.command": "clippy"
-      }
-    }
-  }
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}"
 }
