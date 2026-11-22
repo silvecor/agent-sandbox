@@ -1,6 +1,6 @@
 {
     "id": "sandbox",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "name": "Agent Sandbox",
     "description": "Agent Sandbox",
     "documentationURL": "https://github.com/silvecor/agent-sandbox/tree/main/src/sandbox",
